@@ -1,0 +1,4 @@
+
+
+
+const singleLayoutTestView = '/singleLayoutTest/';
