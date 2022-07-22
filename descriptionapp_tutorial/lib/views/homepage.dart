@@ -18,9 +18,8 @@ class _HomePageViewState extends State<HomePageView> {
         children: [
           Image.asset('assets/images/lake1.jpg'),
           const TitleSection(),
-          
-          textSection,
           buttonSection(context),
+          textSection,
           
       ]),
       

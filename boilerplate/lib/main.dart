@@ -1,13 +1,24 @@
+import 'package:boilerplate/theme/textstyle.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
     title: 'Flutter Demo',
     theme: ThemeData(
+      primaryColor: const Color.fromRGBO(75, 110, 177, 1),
+      drawerTheme: const DrawerThemeData(
+        scrimColor:Color.fromRGBO(0, 0, 0, 0),
+      ), 
       primarySwatch: Colors.blue,
+      primaryTextTheme: const TextTheme(
+        headline6: headLineFont,
+        subtitle2: drawerFont,
+        caption: navigationBarLabelFont,
+      ),
+
+      bottomNavigationBarTheme: bottomNavigationBarThemeData,
     ),
     home: const HomePage(),
-    routes: {},
   ));
 }
 
@@ -19,56 +30,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final headLineFont = const TextStyle(
-    fontFamily: 'Roboto',
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.w500,
-    fontSize: 20,
-    color: Colors.white,
-  );
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-    
-  );
-  final labelFont = const TextStyle(
-    fontFamily: 'Roboto',
-    fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.w400,
-    fontSize: 12,
-    color: Color.fromRGBO(151, 151, 151, 1),
-  );
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
 
+  int _selectedIndex = 0;
+  Color? bgColorBottomNavigationBar;
+  Color? iconColor;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+  void _listenDrawerStatus(isDrawerOpen){
+    if(isDrawerOpen){
+      bgColorBottomNavigationBar = Theme.of(context).primaryColor;
+      iconColor = IconTheme.of(context).color?.withOpacity(0.5) ?? Colors.white60;
+    } else{
+      bgColorBottomNavigationBar = null; /*BottomNavigationBarTheme.of(context).backgroundColor */
+      iconColor = null; /*IconTheme.of(context).color;*/
+    }
+    setState(() { });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(75, 110, 177, 1),
+        toolbarHeight: 65,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text(
           'SODA',
-          style: headLineFont,
+          style: Theme.of(context).primaryTextTheme.headline6,
         ),
       ),
       drawer: Drawer(
@@ -79,15 +70,22 @@ class _HomePageState extends State<HomePage> {
               decoration: const BoxDecoration(
                 color: Color.fromRGBO(24, 41, 73, 1),
               ),
-              child: Text(
-                'Drawer Header',
-                style: headLineFont,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 208, 35),
+                child: Text(
+                  'SODA',
+                  style: Theme.of(context).primaryTextTheme.headline6,
+                ),
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text('Icon: favorite'),
+            ListTile(
+              leading: const Icon(Icons.favorite),
+              title: Text(
+                'Icon: favorite',
+                style: Theme.of(context).primaryTextTheme.subtitle2,
+              ),
             ),
+            
           ],
         ),
       ),
@@ -104,31 +102,48 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(
+              Icons.favorite,
+              color: iconColor,
+            ),
             label: 'Favorite',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: iconColor,
+            ),
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info),
+            icon: Icon(
+              Icons.info,
+              color: iconColor,
+            ),
             label: 'Information',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: Icon(
+              Icons.notifications,
+              color: iconColor,
+            ),
             label: 'Notification',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromRGBO(75, 110, 177, 1),
-        unselectedItemColor: const Color.fromRGBO(151, 151, 151, 1),
-        unselectedLabelStyle: labelFont,
-        backgroundColor: Colors.white,
+
+        //selectedLabelStyle: Theme.of(context).primaryTextTheme.caption,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: bgColorBottomNavigationBar,
         onTap: _onItemTapped,
       ),
+      onDrawerChanged: (isDrawerOpen){
+        _listenDrawerStatus(isDrawerOpen);
+      },
     );
   }
 }
