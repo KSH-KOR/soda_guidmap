@@ -31,6 +31,13 @@ const navigationBarLabelFont = TextStyle(
   letterSpacing: 0.4,
   inherit: true,
 );
+const substitle2 = TextStyle(
+            fontFamily: 'Roboto',
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            color: Color.fromRGBO(0, 0, 0, 0.6),
+          );
 
 const bottomNavigationBarThemeData = BottomNavigationBarThemeData(
   type: BottomNavigationBarType.fixed,

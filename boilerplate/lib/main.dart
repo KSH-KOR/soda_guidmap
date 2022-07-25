@@ -12,7 +12,7 @@ void main() {
       primarySwatch: Colors.blue,
       primaryTextTheme: const TextTheme(
         headline6: headLineFont,
-        subtitle2: drawerFont,
+        subtitle2: substitle2,
         caption: navigationBarLabelFont,
       ),
 
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   void _listenDrawerStatus(isDrawerOpen){
     if(isDrawerOpen){
       bgColorBottomNavigationBar = Theme.of(context).primaryColor;
-      iconColor = IconTheme.of(context).color?.withOpacity(0.5) ?? Colors.white60;
+      iconColor = IconTheme.of(context).color?.withOpacity(0.9) ?? Colors.white60;
     } else{
       bgColorBottomNavigationBar = null; /*BottomNavigationBarTheme.of(context).backgroundColor */
       iconColor = null; /*IconTheme.of(context).color;*/
@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
           'SODA',
           style: Theme.of(context).primaryTextTheme.headline6,
         ),
+        
       ),
       drawer: Drawer(
         child: ListView(
@@ -89,20 +90,13 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: const Center(
+      body: Center(
         child: Text(
           'Copyright 2022 SODA Inc. All rights reserved.',
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.w500,
-            fontSize: 14,
-            color: Color.fromRGBO(0, 0, 0, 0.6),
-          ),
+          style: Theme.of(context).primaryTextTheme.subtitle2,
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
@@ -133,8 +127,8 @@ class _HomePageState extends State<HomePage> {
             label: 'Notification',
           ),
         ],
+        
         currentIndex: _selectedIndex,
-
         //selectedLabelStyle: Theme.of(context).primaryTextTheme.caption,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
