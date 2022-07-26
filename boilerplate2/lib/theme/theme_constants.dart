@@ -9,10 +9,12 @@ const colorGray = Color.fromRGBO(255, 232, 232, 1);
 
 final lightTheme = ThemeData(
   primaryColor: colorPrimary,
+  
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: colorPrimary,
 
   ),
+  
   outlinedButtonTheme: OutlinedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: MaterialStateProperty.all(colorGray),
@@ -25,14 +27,17 @@ final lightTheme = ThemeData(
       ),
     ),
   ),
+  
   appBarTheme: const AppBarTheme(
     backgroundColor: colorPrimary,
   ),
+  
   primaryTextTheme: const TextTheme(
     headline6: headLine6,
     subtitle2: substitle2,
     //labelLarge: labelLarge,
   ),
+  
   textButtonTheme: TextButtonThemeData(
     style: ButtonStyle(
       textStyle: MaterialStateProperty.all(
@@ -42,6 +47,7 @@ final lightTheme = ThemeData(
       ),
     ),
   ),
+  
   dividerTheme: const DividerThemeData(
     thickness: 1,
     indent: 20,
